@@ -1,2 +1,0 @@
-# Python 
-Everyday Python Codes
