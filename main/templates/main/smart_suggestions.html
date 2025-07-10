@@ -1,0 +1,41 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block content %}
+<div class="container my-4">
+    <h2 class="mb-3 fw-bold">🧠 Smart Suggestions Just for You</h2>
+    <p class="text-muted">Based on your habits, spending history, and smart queries</p>
+
+    <!-- ⚠️ Gap Detector -->
+    {% if gap_categories %}
+    <div class="alert alert-warning shadow-sm">
+        <strong>⏳ You may be missing items!</strong>
+        <ul class="mb-0">
+            {% for cat in gap_categories %}
+                <li>{{ cat }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+
+    <!-- 🛍️ Product Suggestions -->
+    <div class="row">
+        {% for product in suggestions %}
+        <div class="col-md-3 mb-4">
+            <div class="card h-100 shadow-sm hover-zoom border-0">
+             <img src="{{ product.image.url }}" class="card-img-top img-fluid" 
+              style="height: 280px; object-fit: cover; border-top-left-radius: 0.75rem; border-top-right-radius: 0.75rem;" 
+               alt="{{ product.name }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ product.name }}</h5>
+                    <p class="card-text"><strong>₹{{ product.price }}</strong></p>
+                    <p class="card-text text-muted small">{{ product.category }}</p>
+                    <a href="{% url 'add_to_planner' product.id %}" class="btn btn-outline-primary btn-sm">➕ Add to Planner</a>
+                    <a href="{% url 'add_to_cart' product.id %}" class="btn btn-outline-success btn-sm">➕ Add to Cart</a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

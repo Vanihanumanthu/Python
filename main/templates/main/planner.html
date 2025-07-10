@@ -1,0 +1,77 @@
+{% extends 'main/base.html' %}
+{% block content %}
+
+<div class="container">
+    <div class="text-center mb-4">
+        <h2 class="fw-bold text-primary">📅 Smart Planner</h2>
+        <p class="text-muted">Manage, mark and edit your shopping plans.</p>
+    </div>
+
+    <!-- Add New Task -->
+    <div class="card p-4 shadow-sm mb-4 border-start border-success border-3">
+        <form method="post">
+            {% csrf_token %}
+            <div class="row g-3 align-items-center">
+                <div class="col-md-5">
+                    <input type="text" class="form-control" name="task" placeholder="Buy groceries..." required>
+                </div>
+                <div class="col-md-4">
+                    <input type="date" class="form-control" name="date" required>
+                </div>
+                <div class="col-md-3">
+                    <button type="submit" class="btn btn-success w-100">➕ Add Task</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Tasks List -->
+    <div class="card p-4 shadow-sm border-start border-primary border-3">
+        <h5 class="mb-3">🗂️ Your Planned Tasks</h5>
+        {% if tasks %}
+            <ul class="list-group list-group-flush">
+                {% for task in tasks %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <div class="form-check">
+                            <form action="{% url 'toggle_task' task.id %}" method="post">
+                                {% csrf_token %}
+                                <input class="form-check-input" type="checkbox" onChange="this.form.submit()" {% if task.completed %}checked{% endif %}>
+                                <label class="form-check-label {% if task.completed %}text-decoration-line-through text-muted{% endif %}">
+                                    {{ task.task }} <small class="text-muted">({{ task.date }})</small>
+                                </label>
+                            </form>
+                        </div>
+                        <div class="btn-group">
+                            <!-- Edit Form Modal Trigger -->
+                            <button class="btn btn-sm btn-outline-secondary" data-bs-toggle="collapse" data-bs-target="#editTask{{ task.id }}">✏️</button>
+                            <a href="{% url 'delete_task' task.id %}" class="btn btn-sm btn-outline-danger">🗑️</a>
+                        </div>
+                    </li>
+
+                    <!-- Inline Edit Form -->
+                    <li id="editTask{{ task.id }}" class="collapse bg-light list-group-item">
+                        <form method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="task_id" value="{{ task.id }}">
+                            <div class="row g-2">
+                                <div class="col-md-5">
+                                    <input type="text" class="form-control" name="task" value="{{ task.task }}" required>
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="date" class="form-control" name="date" value="{{ task.date }}" required>
+                                </div>
+                                <div class="col-md-3">
+                                    <button type="submit" class="btn btn-primary w-100">💾 Save</button>
+                                </div>
+                            </div>
+                        </form>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p class="text-muted">No tasks yet. Start planning!</p>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}

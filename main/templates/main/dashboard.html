@@ -1,0 +1,99 @@
+{% extends 'main/base.html' %}
+{% block content %}
+
+<!-- Animate.css for title (not hover) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+<!-- Only for dashboard -->
+<style>
+    .hover-bounce {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .hover-bounce:hover {
+        transform: scale(1.05);
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+    }
+
+    .dashboard-card {
+        border: none;
+        border-radius: 1rem;
+        padding: 25px 20px;
+        background: linear-gradient(145deg, #f9f9f9, #ffffff);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        height: 100%;
+    }
+
+    .dashboard-icon {
+        font-size: 3rem;
+        margin-bottom: 10px;
+    }
+
+    .dashboard-title {
+        font-weight: 700;
+        font-size: 1.25rem;
+        color: #333;
+    }
+
+    .dashboard-text {
+        font-size: 0.9rem;
+        color: #666;
+    }
+
+    .dashboard-btn {
+        border-radius: 30px;
+        font-size: 0.85rem;
+        padding: 6px 16px;
+    }
+</style>
+
+<!-- Page Header -->
+<div class="text-center mb-5 animate__animated animate__fadeInDown">
+    <h2 class="display-5 fw-bold text-primary">Your Smart Dashboard 🧠</h2>
+    <p class="lead text-muted">Plan smarter. Shop easier. Spend wisely.</p>
+</div>
+
+<!-- Dashboard Cards -->
+<div class="row g-4">
+    <!-- View Planner -->
+    <div class="col-md-6 col-lg-3">
+        <div class="dashboard-card text-center hover-bounce">
+            <div class="dashboard-icon">📅</div>
+            <div class="dashboard-title">View Planner</div>
+            <p class="dashboard-text">Check your upcoming shopping tasks and reminders.</p>
+            <a href="/planner/" class="btn btn-outline-primary btn-sm mt-2">Open Planner</a>
+        </div>
+    </div>
+
+    <!-- Set Habits -->
+    <div class="col-md-6 col-lg-3">
+        <div class="dashboard-card text-center hover-bounce">
+            <div class="dashboard-icon">🧠</div>
+            <div class="dashboard-title">Set Habits</div>
+            <p class="dashboard-text">Create regular buying habits and auto reminders.</p>
+            <a href="/habits/" class="btn btn-outline-success btn-sm mt-2">Set Habits</a>
+            
+        </div>
+    </div>
+
+    <!-- Track Spending -->
+    <div class="col-md-6 col-lg-3">
+        <div class="dashboard-card text-center hover-bounce">
+            <div class="dashboard-icon">💰</div>
+            <div class="dashboard-title">Track Spending</div>
+            <p class="dashboard-text">Analyze how much you spend on regular items.</p>
+            <a href="{% url 'spending_dashboard' %}" class="btn btn-outline-warning">Track</a>
+        </div>
+    </div>
+
+   <div class="col-md-6 col-lg-3">
+    <div class="dashboard-card text-center hover-bounce">
+        <div class="dashboard-icon">🛒</div>
+        <div class="dashboard-title">Smart Suggestions</div>
+        <p class="dashboard-text">Recommended items based on your habits.</p>
+        <a href="{% url 'smart_suggestions' %}" class="btn btn-outline-info btn-sm mt-2 dashboard-btn">Explore</a>
+    </div>
+</div>
+{% endblock %}
+
+

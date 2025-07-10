@@ -1,0 +1,78 @@
+{% extends 'main/base.html' %}
+{% block content %}
+<style>
+  body {
+    background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+    background-attachment: fixed;
+  }
+
+  .login-card {
+    backdrop-filter: blur(10px);
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    color: #fff;
+  }
+
+  .login-card input {
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    border: none;
+  }
+
+  .login-card input::placeholder {
+    color: #ddd;
+  }
+
+  .login-card input:focus {
+    background: rgba(255, 255, 255, 0.2);
+    outline: none;
+    box-shadow: 0 0 0 0.25rem rgba(255, 255, 255, 0.25);
+  }
+
+  .btn-login {
+    background-color: #ffc107;
+    border: none;
+    font-weight: 600;
+  }
+
+  .btn-login:hover {
+    background-color: #ffca2c;
+    transform: scale(1.02);
+  }
+
+  .form-link {
+    color: #fff;
+    text-decoration: underline;
+  }
+</style>
+
+<div class="container d-flex justify-content-center align-items-center vh-100">
+  <div class="login-card col-md-5">
+    <h2 class="text-center mb-4">🔐 Login to SmartShop</h2>
+    <form method="post">
+      {% csrf_token %}
+      <div class="mb-3">
+        <input type="text" name="username" class="form-control" placeholder="Username" required>
+      </div>
+      <div class="mb-3">
+        <input type="password" name="password" class="form-control" placeholder="Password" required>
+      </div>
+      <div class="d-grid">
+        <button type="submit" class="btn btn-login">Login</button>
+      </div>
+    </form>
+    <p class="text-center mt-4">
+      Don't have an account?
+      <a href="{% url 'register' %}" class="form-link">Register here</a>
+    </p>
+    <p class="text-center mt-2">
+  <a href="#" class="form-link">Forgot Password?</a>
+</p>
+
+  </div>
+
+</div>
+{% endblock %}

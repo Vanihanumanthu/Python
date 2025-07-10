@@ -1,0 +1,28 @@
+{% extends 'main/base.html' %}
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">🛒 Your Cart</h2>
+
+    {% if cart_items %}
+        <ul class="list-group mb-3">
+            {% for item in cart_items %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <div>
+                    <strong>{{ item.product.name }}</strong><br>
+                    ₹{{ item.product.price }} × {{ item.quantity }}
+                </div>
+                <span class="badge bg-success rounded-pill">₹{{ item.product.price|floatformat:2 }}</span>
+            </li>
+            {% endfor %}
+        </ul>
+        <h5>Total: ₹{{ total_price }}</h5>
+        <a href="{% url 'checkout' %}" class="btn btn-primary mt-3">Proceed to Checkout</a>
+    {% else %}
+        <div class="alert alert-info text-center shadow-sm">
+            Your cart is currently empty 🛒
+        </div>
+        <a href="{% url 'smart_suggestions' %}" class="btn btn-outline-secondary">Browse Products</a>
+    {% endif %}
+</div>
+{% endblock %}
+

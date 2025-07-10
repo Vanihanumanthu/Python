@@ -1,0 +1,82 @@
+{% extends 'main/base.html' %}
+{% block content %}
+<style>
+  body {
+    background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+    background-attachment: fixed;
+  }
+
+  .register-card {
+    backdrop-filter: blur(10px);
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    color: #fff;
+  }
+
+  .register-card input {
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    border: none;
+  }
+
+  .register-card input::placeholder {
+    color: #ddd;
+  }
+
+  .register-card input:focus {
+    background: rgba(255, 255, 255, 0.2);
+    outline: none;
+    box-shadow: 0 0 0 0.25rem rgba(255, 255, 255, 0.25);
+  }
+
+  .btn-register {
+    background-color: #28a745;
+    border: none;
+    font-weight: 600;
+  }
+
+  .btn-register:hover {
+    background-color: #34c36d;
+    transform: scale(1.02);
+  }
+
+  .form-link {
+    color: #fff;
+    text-decoration: underline;
+  }
+</style>
+
+<div class="container d-flex justify-content-center align-items-center vh-100">
+  <div class="register-card col-md-6">
+    <h2 class="text-center mb-4">📝 Register for SmartShop</h2>
+    <form method="post">
+      {% csrf_token %}
+      <div class="mb-3">
+        <input type="text" name="username" class="form-control" placeholder="Username" required>
+      </div>
+      <div class="mb-3">
+        <input type="email" name="email" class="form-control" placeholder="Email" required>
+      </div>
+      <div class="mb-3">
+        <input type="password" name="password" class="form-control" placeholder="Password" required>
+      </div>
+      <div class="mb-3">
+        <input type="password" name="confirm" class="form-control" placeholder="Confirm Password" required>
+      </div>
+      <div class="d-grid">
+        <button type="submit" class="btn btn-register">Register</button>
+      </div>
+    </form>
+    <p class="text-center mt-4">
+      Already have an account?
+      <a href="{% url 'login' %}" class="form-link">Login here</a>
+    </p>
+    <p class="text-center mt-2">
+      <a href="#" class="form-link">Forgot Password?</a>
+    </p>
+  </div>
+</div>
+{% endblock %}
